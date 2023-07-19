@@ -13,6 +13,10 @@ import static com.codeborne.selenide.Selenide.*;
 
 
 class CardDeliveryTest {
+    public String generateDate(int days) {
+        return LocalDate.now().plusDays(days).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    }
+
     @BeforeEach
     void setUp() {
         open("http://localhost:9999/");
@@ -22,7 +26,7 @@ class CardDeliveryTest {
     @Test
     void shouldValidDataTest() {
         $("[placeholder='Город']").setValue("Москва");
-        String requireDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        String requireDate = generateDate(3);
         $("[placeholder='Дата встречи']").setValue(requireDate);
         $("[name='name']").setValue("Семенова Наталья");
         $("[name='phone']").setValue("+79640000000");
@@ -36,7 +40,7 @@ class CardDeliveryTest {
     @Test
     void shouldInvalidCityTest1() {
         $("[placeholder='Город']").setValue("");
-        String requireDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        String requireDate = generateDate(3);
         $("[placeholder='Дата встречи']").setValue(requireDate);
         $("[name='name']").setValue("Семенова Наталья");
         $("[name='phone']").setValue("+79640000000");
@@ -48,7 +52,7 @@ class CardDeliveryTest {
     @Test
     void shouldInvalidCityTest2() {
         $("[placeholder='Город']").setValue("Moscow");
-        String requireDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        String requireDate = generateDate(3);
         $("[placeholder='Дата встречи']").setValue(requireDate);
         $("[name='name']").setValue("Семенова Наталья");
         $("[name='phone']").setValue("+79640000000");
@@ -70,7 +74,7 @@ class CardDeliveryTest {
     @Test
     void shouldInvalidDateTest2() {
         $("[placeholder='Город']").setValue("Москва");
-        String requireDate = LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        String requireDate = generateDate(2);
         $("[placeholder='Дата встречи']").setValue(requireDate);
         $("[name='name']").setValue("Семенова Наталья");
         $("[name='phone']").setValue("+79640000000");
@@ -82,7 +86,7 @@ class CardDeliveryTest {
     @Test
     void shouldDateMoreThan3DaysTest() {
         $("[placeholder='Город']").setValue("Москва");
-        String requireDate = LocalDate.now().plusDays(4).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        String requireDate = generateDate(4);
         $("[placeholder='Дата встречи']").setValue(requireDate);
         $("[name='name']").setValue("Семенова Наталья");
         $("[name='phone']").setValue("+79640000000");
@@ -96,7 +100,7 @@ class CardDeliveryTest {
     @Test
     void shouldInvalidNameSurnameTest1() {
         $("[placeholder='Город']").setValue("Москва");
-        String requireDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        String requireDate = generateDate(3);
         $("[placeholder='Дата встречи']").setValue(requireDate);
         $("[name='name']").setValue("");
         $("[name='phone']").setValue("+79640000000");
@@ -108,7 +112,7 @@ class CardDeliveryTest {
     @Test
     void shouldInvalidNameSurnameTest2() {
         $("[placeholder='Город']").setValue("Москва");
-        String requireDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        String requireDate = generateDate(3);
         $("[placeholder='Дата встречи']").setValue(requireDate);
         $("[name='name']").setValue("Semenova Natalia");
         $("[name='phone']").setValue("+79640000000");
@@ -120,7 +124,7 @@ class CardDeliveryTest {
     @Test
     void shouldInvalidPhoneTest() {
         $("[placeholder='Город']").setValue("Москва");
-        String requireDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        String requireDate = generateDate(3);
         $("[placeholder='Дата встречи']").setValue(requireDate);
         $("[name='name']").setValue("Семенова Наталья");
         $("[name='phone']").setValue("9640000000");
@@ -132,7 +136,7 @@ class CardDeliveryTest {
     @Test
     void shouldEmptyCheckbox() {
         $("[placeholder='Город']").setValue("Москва");
-        String requireDate = LocalDate.now().plusDays(3).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+        String requireDate = generateDate(3);
         $("[placeholder='Дата встречи']").setValue(requireDate);
         $("[name='name']").setValue("Семенова Наталья");
         $("[name='phone']").setValue("+79640000000");
