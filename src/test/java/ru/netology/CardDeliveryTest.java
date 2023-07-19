@@ -1,9 +1,11 @@
 package ru.netology;
 
+import com.codeborne.selenide.Condition;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -13,7 +15,7 @@ import static com.codeborne.selenide.Selenide.*;
 
 
 class CardDeliveryTest {
-    public String generateDate(int days) {
+    String generateDate(int days) {
         return LocalDate.now().plusDays(days).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
 
@@ -32,9 +34,7 @@ class CardDeliveryTest {
         $("[name='phone']").setValue("+79640000000");
         $("[data-test-id='agreement']").click();
         $(".button__text").click();
-        $("[data-test-id=notification] .notification__title")
-                .waitUntil(visible, 15000)
-                .shouldBe(exactText("Успешно!"));
+        $("[data-test-id='notification']").shouldHave(Condition.text("Встреча успешно забронирована на " + requireDate), Duration.ofSeconds(15)).shouldBe(visible);
     }
 
     @Test
@@ -92,9 +92,7 @@ class CardDeliveryTest {
         $("[name='phone']").setValue("+79640000000");
         $("[data-test-id='agreement']").click();
         $(".button__text").click();
-        $("[data-test-id=notification] .notification__title")
-                .waitUntil(visible, 15000)
-                .shouldBe(exactText("Успешно!"));
+        $("[data-test-id='notification']").shouldHave(Condition.text("Встреча успешно забронирована на " + requireDate), Duration.ofSeconds(15)).shouldBe(visible);
     }
 
     @Test
